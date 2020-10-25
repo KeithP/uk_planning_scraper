@@ -10,7 +10,7 @@ module UKPlanningScraper
       
       apps = []
 
-      agent = Mechanize.new
+      agent = Mechanize.new{ |a| a.ssl_version, a.verify_mode = 'TLSv1_2', OpenSSL::SSL::VERIFY_NONE }
       puts "Getting: #{@url}"
       page = agent.get(@url) # load the search form page
 
