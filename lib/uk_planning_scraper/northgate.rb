@@ -24,6 +24,7 @@ module UKPlanningScraper
         'csbtnSearch' => 'Search' # required
       }
 
+      # Keywords
       form_vars['txtProposal'] = params[:keywords]
 
       # Date received from and to
@@ -48,6 +49,17 @@ module UKPlanningScraper
         form_vars['rbGroup'] = 'rbRange'
         form_vars['dateStart'] = params[:decided_from].to_s if params[:decided_from] # YYYY-MM-DD
         form_vars['dateEnd'] = params[:decided_to].to_s if params[:decided_to] # YYYY-MM-DD
+      end
+      
+      # Status
+      if params[:status]
+        form_vars['cboStatusCode'] = params[:status]
+      end
+
+      # Case officer code
+      if params[:case_officer_code]
+        form_vars['cboCaseOfficerCode'] = params[:case_officer_code]
+        @url.sub!('GeneralSearch.aspx', 'CaseOfficerWorkloadSearch.aspx')
       end
 
       logger.info "Form variables: #{form_vars.to_s}"
@@ -114,8 +126,8 @@ module UKPlanningScraper
           app.address = cells[1].inner_text.strip
           app.description = cells[2].inner_text.strip
           app.status = cells[3].inner_text.strip
-          raw_date_received = cells[4].inner_text.strip
-          app.date_received = Date.parse(raw_date_received) if raw_date_received != '--'
+          raw_date_validated = cells[4].inner_text.strip
+          app.date_validated = Date.parse(raw_date_validated) if raw_date_validated != '--'
           app.decision = cells[5].inner_text.strip if cells[5] # Some councils don't have this column, eg Hackney
 
           apps << app

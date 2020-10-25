@@ -22,18 +22,16 @@ This project is not affiliated with any organisation.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'uk_planning_scraper', \
-  git: 'https://github.com/adrianshort/uk_planning_scraper/'
+gem 'uk_planning_scraper'
 ```
 
 And then execute:
 
     $ bundle install
 
-Or install it yourself as:
+Or install it directly:
 
-    $ gem install specific_install
-    $ gem specific_install adrianshort/uk_planning_scraper
+    $ gem install uk_planning_scraper
 
 ## Usage
 
@@ -108,6 +106,8 @@ keywords("hip gable")
 applicant_name("Mr and Mrs Smith") # Currently Idox only
 application_type("Householder") # Currently Idox only
 development_type("") # Currently Idox only
+case_officer_code("100000") # Northgate only
+status("Pending Consideration") # Check valid status codes for each authority
 
 scrape # runs the scraper
 ```

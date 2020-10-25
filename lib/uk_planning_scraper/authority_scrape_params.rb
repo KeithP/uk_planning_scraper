@@ -62,6 +62,17 @@ module UKPlanningScraper
       self
     end
 
+    def case_officer_code(s)
+      unless system == 'northgate'
+        raise NoMethodError.new("case_officer_code is only implemented for Northgate. \
+          This authority (#{@name}) is #{system.capitalize}.")
+      end
+      
+      check_class(s, String)
+      @scrape_params[:case_officer_code] = s.strip
+      self
+    end
+
     def application_type(s)
       unless system == 'idox'
         raise NoMethodError.new("application_type is only implemented for \
@@ -81,6 +92,12 @@ module UKPlanningScraper
       
       check_class(s, String)
       @scrape_params[:development_type] = s.strip
+      self
+    end
+
+    def status(s)
+      check_class(s, String)
+      @scrape_params[:status] = s.strip
       self
     end
 
