@@ -25,6 +25,8 @@ module UKPlanningScraper
       case system
       when 'idox'
         @applications = scrape_idox(@scrape_params, options)
+      when 'richmond'
+        @applications = scrape_richmond(@scrape_params, options)
       when 'northgate'
         @applications = scrape_northgate(@scrape_params, options)
       else
@@ -70,6 +72,8 @@ module UKPlanningScraper
     def system
       if @url.match(/search\.do\?action=advanced/i)
         'idox'
+      elsif @url.match(/\www2.richmond.gov.uk/i)
+        'richmond'
       elsif @url.match(/\.aspx/i)
         'northgate'
       elsif @url.match(/ocellaweb/i)

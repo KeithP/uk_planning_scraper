@@ -4,6 +4,7 @@ require "uk_planning_scraper/authority_scrape_params"
 require "uk_planning_scraper/application"
 require 'uk_planning_scraper/idox'
 require 'uk_planning_scraper/northgate'
+require 'uk_planning_scraper/richmond'
 require 'logger'
 
 module UKPlanningScraper

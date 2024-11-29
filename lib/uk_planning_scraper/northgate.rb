@@ -96,7 +96,7 @@ module UKPlanningScraper
       response2 = HTTP.headers(headers).cookies(cookies).post(@url, :form => form_vars)
       logger.debug "Response code: HTTP " + response2.code.to_s
 
-      if [200,302].include? response2.code
+      if response2.code == 302
         # Follow the redirect manually
         # Set the page size (PS) to max so we don't have to page through search results
         logger.debug "Location: #{response2.headers['Location']}"
