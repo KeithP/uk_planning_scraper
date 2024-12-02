@@ -6,7 +6,6 @@ module UKPlanningScraper
     private
     def scrape_richmond(params, options)
       puts "Using Richmond scraper."
-      base_url = @url.match(/(https?:\/\/.+?)\//)[1]
       
       apps = []
 
@@ -34,17 +33,19 @@ module UKPlanningScraper
    
       # Parse search results
       items = page.search('#aspnetForm li')
-      puts "Found #{items.size} apps on this page."
+      puts "Found #{items.size} apps on this page: #{page.uri.to_s}"
+	    base_url = page.uri.to_s.match(/(https?:\/\/.+?PlanData2\/)/)[1]
 
       items.each do |app|
         data = Application.new
         data.scraped_at = Time.now
         data.info_url = base_url + app.at('a')['href']
+        data.documents_url = data.info_url
         data.council_reference = app.at('a').inner_text.strip
         data.address = app.at('h3').inner_text.strip
         data.description = app.at('p+ p').inner_text.strip 
         apps << data
-      end           
+      end         
       
       apps
     end 
